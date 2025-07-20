@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BrunoFlix - Shrek</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #000;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    header {
+      background-color: #1f1f1f;
+      color: red;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      padding: 20px;
+      text-align: center;
+      user-select: none;
+    }
+    .voltar {
+      display: inline-block;
+      margin: 20px;
+      padding: 10px 15px;
+      background-color: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+    .voltar:hover {
+      background-color: red;
+    }
+    .video-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      background: black;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: black;
+    }
+    .fullscreen-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 5px;
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+      z-index: 10;
+    }
+    .fullscreen-btn:hover {
+      background: rgba(255, 0, 0, 0.7);
+    }
+    .fullscreen-btn img {
+      width: 24px;
+      height: 24px;
+      filter: invert(1);
+      pointer-events: none;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      .fullscreen-btn img {
+        width: 20px;
+        height: 20px;
+      }
+      .voltar {
+        font-size: 1rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>BrunoFlix</header>
+
+  <a href="../index.html" class="voltar" title="Voltar para home">🏠 Voltar para Home</a>
+
+  <div class="video-container" id="videoContainer">
+    <video id="video" autoplay playsinline>
+      <source src="https://cdnst14.tokyvideo.com/videos/243/243867/mp4/a5afbaee69d9dcaacb0b055945da2daa92b517651b3a39e3e75ee63576488c87.mp4?secure=O_HOX6o0HC5yn6f8p-yTXA%3D%3D%2C1753108243" type="video/mp4" />
+      Seu navegador não suporta vídeo.
+    </video>
+
+    <button class="fullscreen-btn" aria-label="Tela cheia" onclick="toggleFullscreen(event)">
+      <img src="https://cdn-icons-png.flaticon.com/512/6398/6398940.png" alt="Tela cheia" />
+    </button>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const videoContainer = document.getElementById('videoContainer');
+
+    // Toggle play/pause ao clicar no vídeo (exceto no botão fullscreen)
+    videoContainer.addEventListener('click', (e) => {
+      if (e.target.closest('.fullscreen-btn')) return;
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    function toggleFullscreen(e) {
+      e.stopPropagation();
+
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else if (videoContainer.requestFullscreen) {
+        videoContainer.requestFullscreen();
+      } else if (videoContainer.webkitRequestFullscreen) {
+        videoContainer.webkitRequestFullscreen();
+      } else if (videoContainer.msRequestFullscreen) {
+        videoContainer.msRequestFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>
